@@ -20,7 +20,7 @@ Public Class Form1
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles Me.Load
-        Open_Serial()
+        'Open_Serial()
         Open_Serial2()
 
     End Sub
@@ -70,7 +70,7 @@ Public Class Form1
         Dim holdstr As String
         'Dim utf8 As New System.Text.UTF8Encoding()
         holdstr = ""
-        If SerialPort1.IsOpen Then
+        If SerialPort2.IsOpen Then
             Dim stringback As String
             SerialPort2.Write(sendstr & Chr(10) & Chr(13))
             Wait(50)
@@ -159,6 +159,38 @@ Public Class Form1
 
     Private Sub TextBox1_GotFocus(sender As Object, e As EventArgs) Handles TextBox1.GotFocus
         If TextBox1.Text = "Enter comment" Then TextBox1.Text = ""
+    End Sub
+
+    Private Sub Button6_Click_1(sender As Object, e As EventArgs) Handles Button6.Click
+        Dim m1 As Single
+        Dim m2 As Single
+        Dim sendstr As String
+        Dim rpm As Single
+        Dim fn As String
+        fn = "c:\data\biocare-" & Format(Now, "yyMMdd-hhmmss") & ".csv"
+        'Dim fs As FileStream = File.Create(fn)
+        Dim file = My.Computer.FileSystem.OpenTextFileWriter(fn, True)
+        file.WriteLine("RPM , Flow [ml/hr] , m1 , m2")
+        If TextBox1.Text <> "Enter comment" Then
+            file.WriteLine(" , " & TextBox1.Text)
+        End If
+        'Label2.Text = Send_String2("P")
+        For i = 1 To 20
+            Wait(1000)
+            m1 = Val(Send_String2("IP"))
+            'sendstr = Format(i, "####")
+            'Send_String(sendstr & "/")
+            'Wait(10000)
+            'Send_String("0/")
+            Wait(1000)
+            m2 = Val(Send_String2("IP"))
+            Label2.Text = i & " : " & m1 & " : " & m2 & " : " & (m2 - m1)
+            'rpm = 0.1305 * i - 0.5416
+            file.WriteLine(Format(Now, "ss.ff") & "," & Format(360 * (m2 - m1), "#####.000") & "," & m1 & "," & m2)
+            If estop Then i = 1400
+        Next i
+        file.Close()
+
     End Sub
 End Class
 
