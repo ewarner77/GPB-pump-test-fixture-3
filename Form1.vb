@@ -56,7 +56,7 @@ Public Class Form1
     End Function
     Private Sub Open_Serial2()
         'Dim utf8 As System.Text.Encoding = Encoding.UTF8
-        SerialPort2.PortName = "COM4"
+        SerialPort2.PortName = "COM5"
         SerialPort2.BaudRate = 9600
         SerialPort2.Parity = IO.Ports.Parity.None
         SerialPort2.StopBits = IO.Ports.StopBits.One
@@ -164,33 +164,49 @@ Public Class Form1
     Private Sub Button6_Click_1(sender As Object, e As EventArgs) Handles Button6.Click
         Dim m1 As Single
         Dim m2 As Single
-        Dim sendstr As String
-        Dim rpm As Single
+        Dim starttime As DateTime
+        Dim t1 As DateTime
+        Dim rate As Single
+        Dim dtsc As Single
+        Dim dt As TimeSpan
+        Dim dt1 As TimeSpan
+        'Dim sendstr As String
+        'Dim rpm As Single
         Dim fn As String
         fn = "c:\data\biocare-" & Format(Now, "yyMMdd-hhmmss") & ".csv"
         'Dim fs As FileStream = File.Create(fn)
         Dim file = My.Computer.FileSystem.OpenTextFileWriter(fn, True)
-        file.WriteLine("RPM , Flow [ml/hr] , m1 , m2")
+        file.WriteLine("RPM , Flow [ml/min] , m1 , m2")
         If TextBox1.Text <> "Enter comment" Then
             file.WriteLine(" , " & TextBox1.Text)
         End If
         'Label2.Text = Send_String2("P")
-        For i = 1 To 20
-            Wait(1000)
+        starttime = Now
+        For i = 1 To 40
+            'Wait(1000)
+            t1 = Now
             m1 = Val(Send_String2("IP"))
             'sendstr = Format(i, "####")
             'Send_String(sendstr & "/")
             'Wait(10000)
             'Send_String("0/")
-            Wait(1000)
+            Wait(500)
             m2 = Val(Send_String2("IP"))
-            Label2.Text = i & " : " & m1 & " : " & m2 & " : " & (m2 - m1)
+            dt = Now - t1
+            dt1 = Now - starttime
+            dtsc = 1 * dt.TotalMilliseconds
+            rate = 1000 * (m2 - m1) / dt.TotalMilliseconds
+            Label2.Text = i & " : " & m1 & " : " & m2 & " : " & rate
             'rpm = 0.1305 * i - 0.5416
-            file.WriteLine(Format(Now, "ss.ff") & "," & Format(360 * (m2 - m1), "#####.000") & "," & m1 & "," & m2)
+            file.WriteLine(dt1.ToString & "," & Format(rate, "#####.000") & "," & m1 & "," & m2)
             If estop Then i = 1400
         Next i
         file.Close()
 
+    End Sub
+
+    Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
+        MsgBox(Val(Send_String2("IP")))
     End Sub
 End Class
 
