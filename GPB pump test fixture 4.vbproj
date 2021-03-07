@@ -6,9 +6,9 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{5180F778-B815-4847-9F82-DC31347C0DA5}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>GPB_pump_test_fixture_3.My.MyApplication</StartupObject>
-    <RootNamespace>GPB_pump_test_fixture_3</RootNamespace>
-    <AssemblyName>GPB pump test fixture 3</AssemblyName>
+    <StartupObject>GPB_pump_test_fixture_4.My.MyApplication</StartupObject>
+    <RootNamespace>GPB_pump_test_fixture_4</RootNamespace>
+    <AssemblyName>GPB pump test fixture 4</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -22,7 +22,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>GPB pump test fixture 3.xml</DocumentationFile>
+    <DocumentationFile>GPB pump test fixture 4.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -32,7 +32,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>GPB pump test fixture 3.xml</DocumentationFile>
+    <DocumentationFile>GPB pump test fixture 4.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
